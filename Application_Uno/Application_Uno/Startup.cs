@@ -27,6 +27,7 @@ namespace Application_Uno
             string clientId = ConfigurationManager.AppSettings["client_id"];
             string clientSecret = ConfigurationManager.AppSettings["client_secret"];
             string baseUrl = ConfigurationManager.AppSettings["baseURL"];
+            string audience = ConfigurationManager.AppSettings["audience"];
 
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
             app.UseCookieAuthentication(new CookieAuthenticationOptions
@@ -80,7 +81,7 @@ namespace Application_Uno
                     RedirectToIdentityProvider = notification =>
                     {
                         if (notification.ProtocolMessage.RequestType == OpenIdConnectRequestType.Authentication) { 
-                            notification.ProtocolMessage.SetParameter("audience", "authWebApi.com");
+                            notification.ProtocolMessage.SetParameter("audience", audience);
                         }
 
                         if (notification.ProtocolMessage.RequestType == OpenIdConnectRequestType.Logout)

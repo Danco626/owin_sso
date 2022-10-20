@@ -1,0 +1,40 @@
+﻿<div class="row">
+    <div class="col-md-12">
+
+        <h3>ID Token for the User</h3>
+        <p>The ID Token can be extracted from the user's claims.</p>
+
+        <p><strong>ID Token:</strong> @ViewBag.IdToken</p>
+        <p><strong>Access Token:</strong> @ViewBag.AccessToken</p>
+        <p><strong>Refresh Token:</strong> @ViewBag.RefreshToken</p>
+        <p id="result"></p>
+        <button id="submit" type="button">Make Request</button>
+    </div>
+</div>
+
+<script>
+    window.addEventListener("click", function () {
+
+    function getData() {
+        const xhr = new XMLHttpRequest();    
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4) {
+                const resEle = document.getElementById("result");
+                resEle.textContent = xhr.response;
+            }
+        }
+
+        xhr.onerror = function(error) {
+            console.log(error);
+        }
+
+        xhr.open("GET", "/api/data", true);
+        xhr.send();
+    }
+
+    
+        document.getElementById("submit").addEventListener("click", getData);
+    });
+
+</script>
